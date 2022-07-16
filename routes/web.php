@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\citiesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+
+
+Route::resource('cities', citiesController::class);
+
+
+
+// Route::prefix('administrateur')->group(function () {
+
+//     Route::get('/utilissateurs', function () {
+//         return view('users');
+//     });
+//     Route::get('articles', function () {
+//         return view('articles');
+//     });
+//     Route::get('comments', function () {
+//         return view('comments');
+//     });
+//     Route::get('fake', function () {
+//         return response()->json(
+//             [
+//                 'user' => 'John',
+//                 'genre' => 'male',
+//                 'age' => '30 ans'
+
+//             ]
+//         );
+//     });
+// });
