@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\citiesController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,30 +20,11 @@ use App\Http\Controllers\citiesController;
 
 
 
+Route::get('/', [MainController::class, 'main'])->name('home');
 
-Route::resource('cities', citiesController::class);
+Route::get('/main', [MainController::class, 'main']);
+Route::get('/articles', [ArticleController::class, 'index'])->name('article');
+Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('showArticle');
 
 
-
-// Route::prefix('administrateur')->group(function () {
-
-//     Route::get('/utilissateurs', function () {
-//         return view('users');
-//     });
-//     Route::get('articles', function () {
-//         return view('articles');
-//     });
-//     Route::get('comments', function () {
-//         return view('comments');
-//     });
-//     Route::get('fake', function () {
-//         return response()->json(
-//             [
-//                 'user' => 'John',
-//                 'genre' => 'male',
-//                 'age' => '30 ans'
-
-//             ]
-//         );
-//     });
-// });
+Auth::routes();

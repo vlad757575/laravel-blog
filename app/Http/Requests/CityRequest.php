@@ -41,6 +41,9 @@ class CityRequest extends FormRequest
         return [
             'nom.required' => 'Le champ nom est obligatoire',
             'country.required' => 'Le champ country est obligatoire',
+            'population.required' => 'Le champ population est obligatoire',
+            'about.required' => 'Le champ about est obligatoire',
+            'about.min' => 'Z',
         ];
     }
 }

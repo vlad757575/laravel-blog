@@ -6,24 +6,33 @@
     <div class="form-example">
       <label for="nom">Nom de la ville: </label>
       <input type="text" name="nom" id="nom" >
+      @error('nom')
+          {{$message}}
+      @enderror
     </div>
-    @error('nom')
-        {{$message}}
-        
-    @enderror
+   
 
     <div class="form-example">
-      <label for="email">Pays: </label>
-      <input type="text" name="email" id="email" required>
+      <label for="country">Pays: </label>
+      <input type="text" name="country" id="country" >
+      @error('nom')
+      {{$message}}
+  @enderror
     </div>
     
     <div class="form-example">
-      <label for="email">Population: </label>
-      <input type="text" name="email" id="email" required>
+      <label for="population">Population: </label>
+      <input type="text" name="population" id="email" >
+      @error('population')
+      {{$message}}
+  @enderror
     </div>
     <div class="form-example">
-      <label for="email">A propos: </label>
-      <input type="text" name="email" id="email" required>
+      <label for="about">A propos: </label>
+      <input type="text" name="about" id="email" >
+      @error('about')
+      {{$message}}
+  @enderror
     </div>
     <div class="form-example">
       <input type="submit" value="Subscribe!">
