@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,9 @@ class AdminMiddleware
         $user = Auth::user();
 
         if (!$user) {
+            return redirect()->route('login');
+        }
+        if ($user->role !== User::ADMIN_ROLE) {
             return redirect()->route('login');
         }
 

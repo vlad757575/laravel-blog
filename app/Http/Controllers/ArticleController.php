@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('Admin.articles');
+        $articles = Article::paginate(6);
+
+        return view('articles.index', [
+            'articles' => $articles
+        ]);
     }
 
     /**
@@ -23,18 +31,26 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.index');
+
+        return view('admin.new-article');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Request\ArticleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Article::create([
+            'title' => $request->input('title'),
+            'subtitle' => $request->input('subtitle'),
+            'content' => $request->input('content'),
+        ]);
+        return redirect()->route('admin')->with('success', "L'article a bien été publié !");
     }
 
     /**
@@ -43,9 +59,23 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+
+        $articles = Article::where('slug', $slug)->firstOrFail();
+
+        return view('articles.show', [
+            'article' => $articles
+        ]);
+    }
+
+    public function admin()
+    {
+        $articles = Article::paginate(8);
+
+        return view('admin.articles', [
+            'articles' => $articles,
+        ]);
     }
 
     /**

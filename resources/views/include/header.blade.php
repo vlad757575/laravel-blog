@@ -19,7 +19,8 @@
                             </form>
                         </li>
                         <li>
-                            <span class="nav-link"> Bonjour {{ Auth::user()->name }}</span>
+                            <a href="{{ route('admin') }}" class="nav-link"> Ton compte
+                                {{ Auth::user()->name }}</a>
                         </li>
                     @else
                         <li>
@@ -28,10 +29,12 @@
                                 <button class="btn" type="submit">Connexion</button>
                             </form>
                         </li>
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
-                            <button class="btn" type="submit">Créer un compte</button>
-                        </form>
+                        <li>
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+                                <button class="btn" type="submit">Créer un compte</button>
+                            </form>
+                        </li>
                     </ul>
                 @endif
 

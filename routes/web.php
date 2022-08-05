@@ -23,6 +23,12 @@ use App\Http\Controllers\ArticleController;
 Route::get('/', [MainController::class, 'main'])->name('home');
 Route::get('/articles', [ArticleController::class, 'index'])->name('article');
 Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('showArticle');
-Route::get('/Admin/articles', [ArticleController::class, 'index'])->name('adminarticle')->middleware('admin');
+
+Route::get('/admin/articles', [ArticleController::class, 'admin'])->name('admin');
+Route::get('/admin/articles/delete/{slug}', [ArticleController::class, 'destroy'])->name('delete');
+Route::get('/admin/articles/edit/{slug}', [ArticleController::class, 'edit'])->name('edit');
+Route::get('/admin/articles/new-article', [ArticleController::class, 'create'])->name('newArticle')->middleware('admin');
+Route::post(':admin/articles/store', [ArticleController::class, 'store'])->name('store')->middleware('admin');
+
 
 Auth::routes();
