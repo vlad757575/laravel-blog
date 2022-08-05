@@ -21,10 +21,8 @@ use App\Http\Controllers\ArticleController;
 
 
 Route::get('/', [MainController::class, 'main'])->name('home');
-
-Route::get('/main', [MainController::class, 'main']);
 Route::get('/articles', [ArticleController::class, 'index'])->name('article');
 Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('showArticle');
-
+Route::get('/Admin/articles', [ArticleController::class, 'index'])->name('adminarticle')->middleware('admin');
 
 Auth::routes();
