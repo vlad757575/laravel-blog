@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="d-flex justify-content-center">
-        <a href="{{ route('newArticle') }}" class="btn btn-info my-3"> <i class="fas fa-plus"></i> Ajouter un nouvel
+        <a href="{{ route('create') }}" class="btn btn-info my-3"> <i class="fas fa-plus"></i> Ajouter un nouvel
             article</a>
     </div>
     <table class="table">
@@ -26,8 +26,42 @@
                     <td>{{ $article->title }}</td>
                     <td>{{ $article->subtitle }}</td>
                     <td>{!! $article->content !!}</td>
-                    <td> <a href="" class="btn btn-danger">Delete</a></td>
-                    <td> <a href="" class="btn btn-info">Edit</a></td>
+                    <td>
+                        <button type="button"
+                            onclick="document.getElementById('open-modal-{{ $article->slug }}').style.display='block' "
+                            class="btn btn-danger">
+                            Supprimer</button>
+                    </td>
+                    <form action="{{ route('delete', $article->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        {{-- modal --}}
+                        <div class="modal" id="open-modal-{{ $article->slug }}">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Cette action est definitive !</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                            onclick="document.getElementById('open-modal-{{ $article->slug }}').style.display='none' ">
+                                            <span aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Etes-vous sur de vouloir supprimer cet article ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Oui</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            onclick="document.getElementById('open-modal-{{ $article->slug }}').style.display='none' ">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end modal --}}
+
+                    </form>
+                    <td> <a href="{{ route('edit', $article->id) }}" class="btn btn-info">Edit</a></td>
                     <td><a class="btn btn-info" href="{{ route('showArticle', $article->slug) }}">Show</a></td>
                 </tr>
             @endforeach

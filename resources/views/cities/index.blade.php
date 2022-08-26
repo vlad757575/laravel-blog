@@ -1,3 +1,0 @@
-@extends('base')
-
-{% bonjour %} sdfsdfsd

@@ -31,7 +31,6 @@ class ArticleController extends Controller
      */
     public function create()
     {
-
         return view('admin.new-article');
     }
 
@@ -59,13 +58,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Article $article)
     {
-
-        $articles = Article::where('slug', $slug)->firstOrFail();
-
         return view('articles.show', [
-            'article' => $articles
+            'article' => $article
         ]);
     }
 
@@ -84,9 +80,12 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+
+        return view('admin.edit', [
+            'article' => $article
+        ]);
     }
 
     /**
@@ -96,9 +95,14 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        $article->title = $request->input('title');
+        $article->subtitle = $request->input('subtitle');
+        $article->content = $request->input('content');
+        $article->save();
+
+        return redirect()->route('admin')->with('success', "L'article a bien été modifié !");
     }
 
     /**
@@ -107,8 +111,11 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function delete(Article $article)
     {
-        //
+        $article->delete();
+
+        return redirect()->route('admin')->with('success', "L'article a bien été supprimé !");
     }
 }

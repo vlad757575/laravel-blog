@@ -1,5 +1,5 @@
 @include('base')
-@dump(Session::all())
+
 @yield('content')
 <div class="jumbotron">
     <h1 class="text-center mt-5">Nos articles</h1>
